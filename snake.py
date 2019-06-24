@@ -35,6 +35,11 @@ class Snake( base.Entity ) :
         self._nx = int( canvasWidth / cellSize )
         self._ny = int( canvasHeight / cellSize )
 
+        self._alive = True
+
+    def alive( self ) :
+        return self._alive
+
     def head( self ) :
         return self._bodyParts[0]
 
@@ -106,6 +111,10 @@ class Snake( base.Entity ) :
         
         for k in range( len( self._bodyParts ) ) :
             self._bodyParts[k].update()
+
+        for i in range( 1, len( self._bodyParts ) ) :
+            if self.head().hit( self._bodyParts[i] ):
+                self._alive = False
 
     def draw( self, canvas ) :
         for k in range( len( self._bodyParts ) ) :
